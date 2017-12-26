@@ -1,3 +1,5 @@
+import math
+
 import matplotlib.pyplot as plt
 
 
@@ -9,6 +11,10 @@ def cube(value):
     return value ** 3
 
 
+def sinus(value):
+    return math.sin(value)
+
+
 def getValues(start, to, f):
     values = []
     for i in range(start, to + 1):
@@ -16,7 +22,7 @@ def getValues(start, to, f):
     return values
 
 
-items = getValues(-10, 10, square)
+items = getValues(-10, 10, cube)
 x = [x for x, y in items]
 y = [y for x, y in items]
 
