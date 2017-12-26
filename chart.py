@@ -15,9 +15,9 @@ def sinus(value):
     return math.sin(value)
 
 
-def getValues(start, to, f):
+def getValues(start, end, f):
     values = []
-    for i in range(start, to + 1):
+    for i in range(start, end + 1):
         values.append((i, f(i)))
     return values
 

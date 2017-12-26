@@ -2,40 +2,6 @@ import itertools as it
 import time
 
 
-def factorialCore():
-    x, y = (1, 1)
-    yield x
-    while (True):
-        x, y = (x * y, y + 1)
-        yield x
-
-
-def factorialCore2(limit):
-    for i in it.takewhile(lambda x: x < limit, factorialCore()):
-        yield i
-
-
-def factorial(limit):
-    for i in factorialCore2(limit):
-        print(i)
-
-
-def fibonacci():
-    while (True):
-        x, y = (0, 1)
-        yield x
-        yield y
-        while True:
-            x, y = x + y, x
-            yield x
-
-
-def fibonacci(n):
-    if (n == 0): return 0
-    if (n == 1): return 1
-    return fibonacci(n - 1) + fibonacci(n - 2)
-
-
 def memoize(f):
     cache = {}
 
@@ -45,7 +11,6 @@ def memoize(f):
         return cache[key]
 
     return inner
-
 
 def measure(f):
     def inner(value):
