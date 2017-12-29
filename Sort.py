@@ -1,3 +1,6 @@
+import random
+
+
 def quick_sort(items):
     size = len(items)
     if size < 2:
@@ -23,3 +26,8 @@ def binary_tree_contain(items, value):
             low = mid + 1
         count += 1
     return False, count
+
+
+def test_bs():
+    for i in range(1, 10):
+        print(binary_tree_contain(range(1, 10000000), random.randint(1, 10000000)))
