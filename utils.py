@@ -14,6 +14,7 @@ def memoize(f):
 
     return inner
 
+
 def measure(f):
     def inner(value):
         start = time.time()
