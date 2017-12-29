@@ -24,7 +24,7 @@ def measure(f):
     return inner
 
 
-def random_by_seq(value):
+def random_by_seq():
     x = 1
     while True:
         yield x;
@@ -32,7 +32,7 @@ def random_by_seq(value):
 
 
 def run_random(limit):
-    for i in random_by_seq(1):
+    for i in random_by_seq():
         if i > limit:
             break
         print(i)
