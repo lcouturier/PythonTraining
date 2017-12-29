@@ -1,4 +1,6 @@
 import itertools as it
+import math
+import random
 import time
 
 
@@ -22,6 +24,20 @@ def measure(f):
     return inner
 
 
+def random_by_seq(value):
+    x = 1
+    while True:
+        yield x;
+        x = x + random.randint(1, 100)
+
+
+def run_random(limit):
+    for i in random_by_seq(1):
+        if i > limit:
+            break
+        print(i)
+
+
 def unfold(v, f):
     yield v
     while True:
@@ -32,3 +48,23 @@ def unfold(v, f):
 def loop(limit):
     for i in it.takewhile(lambda x: x < limit, unfold(1, lambda x: x + 1)):
         print('%.2d' % i)
+
+
+def isPrime(value):
+    if value < 2: return False
+    if value == 2 or value == 3: return True
+    if value % 2 == 0: return False
+    for i in range(2, int(math.sqrt(value)) + 1):  # only odd numbers
+        if value % i == 0:
+            return False
+    return True
+
+
+def primes():
+    yield 2;
+    yield 3;
+    x = 5
+    while True:
+        if isPrime(x):
+            yield x;
+        x = x + 2
