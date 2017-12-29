@@ -1,6 +1,7 @@
 import itertools as it
 
 
+
 def factorial_by_seq():
     (x, y) = (1, 1)
     while True:
