@@ -1,7 +1,6 @@
 import itertools as it
 
 
-
 def factorial_by_seq():
     (x, y) = (1, 1)
     while True:
@@ -12,8 +11,7 @@ def factorial_by_seq():
 def factorial(value):
     if value == 1:
         return value
-    else:
-        return value * factorial(value - 1)
+    return value * factorial(value - 1)
 
 
 def factorial_by_acc(value):
