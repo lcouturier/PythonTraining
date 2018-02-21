@@ -39,3 +39,35 @@ def generate_factorial(limit):
 def factorial(limit):
     for i in generate_factorial(limit):
         print(i)
+
+
+def max_key_dictionary(d):
+    return max(d, key=d.get)
+
+
+def factorial_bottom_up():
+    cache = {}
+    cache[0] = 1
+
+    def inner(key):
+        if key in cache:
+            return cache[key]
+        max_key = max_key_dictionary(cache)
+        for i in range(max_key + 1, key + 1):
+            cache[i] = cache[i - 1] * i
+
+        return cache[key]
+
+    return inner
+
+
+def main():
+    f = factorial_bottom_up()
+    result = f(10)
+    print(result)
+    result = f(11)
+    print(result)
+
+
+if __name__ == '__main__':
+    main()
