@@ -1,5 +1,3 @@
-
-
 # Generate all subsets of a given set
 # Examples: set[] = {3, 34, 4, 12, 5, 2}, sum = 9
 
