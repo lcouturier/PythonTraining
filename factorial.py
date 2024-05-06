@@ -46,8 +46,7 @@ def max_key_dictionary(d):
 
 
 def factorial_bottom_up():
-    cache = {}
-    cache[0] = 1
+    cache = {0: 1}
 
     def inner(key):
         if key in cache:

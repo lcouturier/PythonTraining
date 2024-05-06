@@ -47,9 +47,7 @@ def max_key_dictionary(d):
 
 
 def fibonacci_bottom_up():
-    cache = {}
-    cache[0] = 0
-    cache[1] = 1
+    cache = {0: 0, 1: 1}
 
     def inner(key):
         if key in cache:
@@ -69,6 +67,7 @@ def fibonacci_by_recurse_measure():
 
 def fibonacci_by_memoize_measure():
     return utils.measure(fibonacci_by_cache())
+
 
 def fibonacci_by_cache_measure():
     return utils.measure(fibonacci_bottom_up())
