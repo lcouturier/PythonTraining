@@ -20,7 +20,7 @@ def getFibonacci(limit):
         if count == limit:
             break
 
-    return items;
+    return items
 
 
 def fibonacci(n):
@@ -34,8 +34,8 @@ def fibonacci_by_cache():
 
     def inner_fibonacci(key):
         if key not in cache:
-            if (key == 0): return 0
-            if (key == 1): return 1
+            if key == 0: return 0
+            if key == 1: return 1
             cache[key] = inner_fibonacci(key - 1) + inner_fibonacci(key - 2)
         return cache[key]
 
@@ -73,6 +73,7 @@ def fibonacci_by_cache_measure():
     return utils.measure(fibonacci_bottom_up())
 
 
+
 def main():
     f2 = fibonacci_by_memoize_measure()
     result = f2(100)
@@ -82,10 +83,10 @@ def main():
     print(result)
 
     f3 = fibonacci_by_cache_measure()
-    result = f3(100)
+    (time, result) = f3(100)
     print(result)
 
-    result = f3(10)
+    (time, result) = f3(10)
     print(result)
 
 

@@ -1,7 +1,7 @@
 # Exercises
 
 
-def first_occuring_char(value):
+def first_occurring_char(value):
     dic = {}
     for c in value:
         if c in dic:
@@ -9,7 +9,7 @@ def first_occuring_char(value):
         dic[c] = 1
 
 
-def max_occuring_char(value):
+def max_occurring_char(value):
     dic = {}
     i = 0
     previous = value[0]

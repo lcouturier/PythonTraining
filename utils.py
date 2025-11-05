@@ -62,8 +62,8 @@ def isPrime(value):
 
 
 def primes():
-    yield 2;
-    yield 3;
+    yield 2
+    yield 3
     x = 5
     while True:
         if isPrime(x):
