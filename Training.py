@@ -29,7 +29,8 @@ def max_occurring_char(value):
 
 
 def main():
-    result = max_occuring_char("AABBBDDADDDDD")
+    result = max_occurring_char("AABBBDDADDDDCCCBBAAA")
+    print(result)
 
 
 if __name__ == '__main__':

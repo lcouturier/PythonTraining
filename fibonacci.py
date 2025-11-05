@@ -84,10 +84,10 @@ def main():
 
     f3 = fibonacci_by_cache_measure()
     (time, result) = f3(100)
-    print(result)
+    print(time)
 
     (time, result) = f3(10)
-    print(result)
+    print(time)
 
 
 if __name__ == '__main__':

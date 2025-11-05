@@ -4,7 +4,7 @@ import itertools as it
 def factorial_by_seq():
     (x, y) = (1, 1)
     while True:
-        yield x;
+        yield x
         (x, y) = (x * y, y + 1)
 
 

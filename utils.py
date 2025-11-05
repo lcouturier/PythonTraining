@@ -28,7 +28,7 @@ def measure(f):
 def random_by_seq():
     x = 1
     while True:
-        yield x;
+        yield x
         x = x + random.randint(1, 100)
 
 
@@ -51,10 +51,13 @@ def loop(limit):
         print('%.2d' % i)
 
 
-def isPrime(value):
-    if value < 2: return False
-    if value == 2 or value == 3: return True
-    if value % 2 == 0: return False
+def is_prime(value):
+    if value < 2:
+        return False
+    if value == 2 or value == 3:
+        return True
+    if value % 2 == 0:
+        return False
     for i in range(2, int(math.sqrt(value)) + 1):  # only odd numbers
         if value % i == 0:
             return False
@@ -66,6 +69,6 @@ def primes():
     yield 3
     x = 5
     while True:
-        if isPrime(x):
-            yield x;
+        if is_prime(x):
+            yield x
         x = x + 2
