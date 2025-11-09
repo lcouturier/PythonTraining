@@ -40,11 +40,11 @@ class Gender(Enum):
 
 
 class Person:
-    def __init__(self, last_name: str, first_name: str, age: int, gender=Gender.MALE, email: str = None):
+    def __init__(self, last_name: str, first_name: str, age: int, gender: Gender | None, email: str = None):
         self.last_name = last_name
         self.first_name = first_name
         self.age = age
-        self.gender = gender
+        self.gender = gender is not None and gender or Gender.UNKNOWN
         self.email = email is not None and email or f"{first_name.lower()}.{last_name.lower()}@example.com"
 
     def __repr__(self):
@@ -116,8 +116,8 @@ class Person:
 
 
 if __name__ == '__main__':
-    p1 = Person("Doe", "John", 30, Gender.MALE)
-    p2 = Person("Doe", "Jane", 25, Gender.FEMALE)
+    p1 = Person("Doe", "John", 30, gender=Gender.MALE, email="laurent.couturier@gmail.com")
+    p2 = Person("Doe", "Jane", 25, gender=Gender.FEMALE)
     print(p1)
     print(p2)
     print(p1 == p2)
@@ -130,3 +130,4 @@ if __name__ == '__main__':
     print(p1 == p3)
     print(str(p1))
     print(str(p2))
+    print(p1.email)
