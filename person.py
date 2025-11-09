@@ -12,6 +12,7 @@ class Gender(Enum):
     def __str__(self):
         return self.value
 
+
     @staticmethod
     def from_str(label):
         match label.lower():
@@ -60,6 +61,20 @@ class Person:
 
     def __bool__(self):
         return self.age > 0
+
+    def __iadd__(self, other):
+        if isinstance(other, int):
+            self.age += other
+            return self
+        raise TypeError("Operand must be an integer")
+
+    def __isub__(self, other):
+        if isinstance(other, int):
+            self.age -= other
+            return self
+        raise TypeError("Operand must be an integer")
+
+
 
     def to_dict(self):
         return {

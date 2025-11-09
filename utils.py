@@ -6,9 +6,17 @@ from typing import Iterator
 
 
 def load_lines(filename: str) -> Iterator[str]:
-    with open(filename, 'r') as f:
-        for line in f:
-            yield line.rstrip('\n')
+    try:
+        with open(filename, 'r') as f:
+            for line in f:
+                yield line.rstrip('\n')
+    except FileNotFoundError:
+        print(f"File {filename} not found.")
+        return iter([])
+
+
+def map_index(items) -> Iterator[tuple[int, any]]:
+    return enumerate(items)
 
 
 def memoize(f):
@@ -79,3 +87,8 @@ def primes():
         if is_prime(x):
             yield x
         x = x + 2
+
+
+def main():
+    for p in map_index(["apple", "banana", "cherry"]):
+        print(p)
