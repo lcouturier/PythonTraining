@@ -14,3 +14,9 @@ class Compteur:
 
     def __repr__(self):
         return f"Compteur({self.value})"
+
+    def __str__(self):
+        return str(self.value)
+
+    def reset(self):
+        self.value = 0

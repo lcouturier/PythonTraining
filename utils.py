@@ -2,6 +2,13 @@ import itertools as it
 import math
 import random
 import time
+from typing import Iterator
+
+
+def load_lines(filename: str) -> Iterator[str]:
+    with open(filename, 'r') as f:
+        for line in f:
+            yield line.rstrip('\n')
 
 
 def memoize(f):

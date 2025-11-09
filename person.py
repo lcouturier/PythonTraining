@@ -40,15 +40,18 @@ class Gender(Enum):
 
 
 class Person:
-    def __init__(self, last_name, first_name, age, gender=Gender.MALE, email=None):
+    def __init__(self, last_name: str, first_name: str, age: int, gender=Gender.MALE, email: str = None):
         self.last_name = last_name
         self.first_name = first_name
         self.age = age
         self.gender = gender
-        self.email = email is not None and email or ""
+        self.email = email is not None and email or f"{first_name.lower()}.{last_name.lower()}@example.com"
 
     def __repr__(self):
         return f"Person(last_name='{self.last_name}', first_name='{self.first_name}', age={self.age})"
+
+    def __str__(self):
+        return f"{self.last_name}, {self.first_name} ({self.age} years old)"
 
     def __eq__(self, other):
         return (self.last_name == other.last_name and
@@ -113,12 +116,17 @@ class Person:
 
 
 if __name__ == '__main__':
-    g = Gender.MALE
-    print(g)
-    print(g.value)
-    print(Gender.from_str("Female"))
-
-    f = Gender.from_ordinal()
-    print(f(1))
-    print(f(2))
-    print(f(99))
+    p1 = Person("Doe", "John", 30, Gender.MALE)
+    p2 = Person("Doe", "Jane", 25, Gender.FEMALE)
+    print(p1)
+    print(p2)
+    print(p1 == p2)
+    print(p1.is_adult())
+    print(p2.is_senior)
+    print(p1.greet)
+    print(p2.birthday())
+    p3 = p1.clone()
+    print(p3)
+    print(p1 == p3)
+    print(str(p1))
+    print(str(p2))
