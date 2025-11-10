@@ -21,8 +21,5 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(p1.age, 35)
 
 
-
-
-
 if __name__ == '__main__':
     unittest.main()

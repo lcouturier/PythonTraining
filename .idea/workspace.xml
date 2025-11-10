@@ -8,13 +8,19 @@
     <bookmark url="file://$PROJECT_DIR$/factorial.py" line="58" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cfd3eca8-5c06-4736-b41f-06c30f6775e9" name="Default" comment="Ajout de la création de graphique">
-      <change afterPath="$PROJECT_DIR$/first_occurence.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/two_sum.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils_test.py" afterDir="false" />
+    <list default="true" id="cfd3eca8-5c06-4736-b41f-06c30f6775e9" name="Default" comment="some refactoring">
+      <change afterPath="$PROJECT_DIR$/.flake8" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.pylintrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/annotations.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gender.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/gender_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Training.py" beforeDir="false" afterPath="$PROJECT_DIR$/Training.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Json.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Recurse.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recurse.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fibonacci.py" beforeDir="false" afterPath="$PROJECT_DIR$/fibonacci.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/person.py" beforeDir="false" afterPath="$PROJECT_DIR$/person.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/person_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/person_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -130,6 +136,10 @@
       </list>
     </option>
   </component>
+  <component name="ProblemsViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -176,36 +186,50 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python tests.Unittests for utils_test.MyTestCase.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Unittests in utils_test.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Training.executor&quot;: &quot;Run&quot;,
-    &quot;Python.factorial.executor&quot;: &quot;Run&quot;,
-    &quot;Python.fibonacci.executor&quot;: &quot;Run&quot;,
-    &quot;Python.first_occurence.executor&quot;: &quot;Run&quot;,
-    &quot;Python.generate_subset.executor&quot;: &quot;Run&quot;,
-    &quot;Python.two_sum.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/laurent_couturier/MyCode/PythonTraining&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Python tests.Unittests for gender_test.MyTestCase.executor": "Run",
+    "Python tests.Unittests for gender_test.MyTestCase.test_from_ordinal.executor": "Run",
+    "Python tests.Unittests for person_test.MyTestCase.executor": "Run",
+    "Python tests.Unittests for person_test.MyTestCase.test_person_email.executor": "Run",
+    "Python tests.Unittests for utils_test.MyTestCase.executor": "Run",
+    "Python tests.Unittests in compteur_test.py.executor": "Run",
+    "Python tests.Unittests in person_test.py.executor": "Run",
+    "Python tests.Unittests in utils_test.py.executor": "Run",
+    "Python.Training.executor": "Run",
+    "Python.chart.executor": "Run",
+    "Python.compteur.executor": "Run",
+    "Python.factorial.executor": "Run",
+    "Python.fibonacci.executor": "Run",
+    "Python.first_occurence.executor": "Run",
+    "Python.generate_subset.executor": "Run",
+    "Python.person.executor": "Run",
+    "Python.two_sum.executor": "Run",
+    "Python.utils.executor": "Run",
+    "Python.vector.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/laurent_couturier/MyCode/PythonTraining",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "show.migrate.to.gradle.popup": "false",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="Python tests.Unittests for utils_test.MyTestCase">
+}]]></component>
+  <component name="RunManager" selected="Python tests.Unittests for gender_test.MyTestCase.test_from_ordinal">
     <configuration name="Training" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonTraining" />
       <option name="ENV_FILES" value="" />
@@ -228,7 +252,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="first_occurence" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="person" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonTraining" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -241,7 +265,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/first_occurence.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/person.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -250,44 +274,37 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="two_sum" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PythonTraining" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/two_sum.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Unittests for utils_test.MyTestCase" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration name="Unittests for gender_test.MyTestCase" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="PythonTraining" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;utils_test.MyTestCase&quot;" />
+      <option name="_new_target" value="&quot;gender_test.MyTestCase&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Unittests in utils_test.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration name="Unittests for gender_test.MyTestCase.test_from_ordinal" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="PythonTraining" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;gender_test.MyTestCase.test_from_ordinal&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests in person_test.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="PythonTraining" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -298,31 +315,24 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/utils_test.py&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/person_test.py&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="Python.Training" />
-      <item itemvalue="Python.first_occurence" />
-      <item itemvalue="Python.two_sum" />
-      <item itemvalue="Python tests.Unittests for utils_test.MyTestCase" />
-      <item itemvalue="Python tests.Unittests in utils_test.py" />
-    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Unittests for utils_test.MyTestCase" />
-        <item itemvalue="Python.two_sum" />
+        <item itemvalue="Python tests.Unittests for gender_test.MyTestCase.test_from_ordinal" />
+        <item itemvalue="Python tests.Unittests for gender_test.MyTestCase" />
+        <item itemvalue="Python.person" />
         <item itemvalue="Python.Training" />
-        <item itemvalue="Python tests.Unittests in utils_test.py" />
-        <item itemvalue="Python.first_occurence" />
+        <item itemvalue="Python tests.Unittests in person_test.py" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-975db3bf15a3-31b6be0877a2-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.18034.82" />
+        <option value="bundled-python-sdk-337b0a7a993a-31b6be0877a2-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.19416.19" />
       </set>
     </attachedChunks>
   </component>
@@ -343,6 +353,7 @@
       <workItem from="1714982917586" duration="214000" />
       <workItem from="1714983140173" duration="877000" />
       <workItem from="1715847667044" duration="6000" />
+      <workItem from="1762349162824" duration="144000" />
     </task>
     <task id="LOCAL-00001" summary="Création du projet">
       <created>1514275181124</created>
@@ -463,7 +474,47 @@
       <option name="project" value="LOCAL" />
       <updated>1519230145954</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="some refactoring">
+      <option name="closed" value="true" />
+      <created>1762328817161</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1762328817161</updated>
+    </task>
+    <task id="LOCAL-00019" summary="add person class">
+      <option name="closed" value="true" />
+      <created>1762371811214</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1762371811214</updated>
+    </task>
+    <task id="LOCAL-00020" summary="add person class">
+      <option name="closed" value="true" />
+      <created>1762683803682</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1762683803682</updated>
+    </task>
+    <task id="LOCAL-00021" summary="add person class">
+      <option name="closed" value="true" />
+      <created>1762684978713</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1762684978713</updated>
+    </task>
+    <task id="LOCAL-00022" summary="some refactoring">
+      <option name="closed" value="true" />
+      <created>1762693935689</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1762693935689</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -505,7 +556,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Création du projet" />
     <MESSAGE value="Ajout de la création de graphique" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout de la création de graphique" />
+    <MESSAGE value="add person class" />
+    <MESSAGE value="some refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="some refactoring" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

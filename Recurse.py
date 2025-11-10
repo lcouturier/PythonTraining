@@ -6,15 +6,13 @@ def head(items):
     return items[0]
 
 
-def max(items):
-    if len(items) == 0:
+def max_items(items):
+    if not items:
         return 0
-    else:
-        result = sum(tail(items))
-        if head(items) > result:
-            return head(items)
-        else:
-            return result
+    max_item = items[0]
+    for item in items[1:]:
+        max_item = max(max_item, item)
+    return max_item
 
 
 def power(x, n):

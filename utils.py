@@ -1,7 +1,6 @@
 import itertools as it
 import math
 import random
-import time
 from typing import Iterator
 
 
@@ -17,27 +16,6 @@ def load_lines(filename: str) -> Iterator[str]:
 
 def map_index(items) -> Iterator[tuple[int, any]]:
     return enumerate(items)
-
-
-def memoize(f):
-    cache = {}
-
-    def inner(key):
-        if key not in cache:
-            cache[key] = f(key)
-        return cache[key]
-
-    return inner
-
-
-def measure(f):
-    def inner(value):
-        start = time.time()
-        result = f(value)
-        end = time.time()
-        return end - start, result
-
-    return inner
 
 
 def random_by_seq():

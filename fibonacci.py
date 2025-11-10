@@ -11,7 +11,7 @@ def fibonacci():
             yield x
 
 
-def getFibonacci(limit):
+def get_fibonacci(limit):
     items = []
     count = 0
     for i in fibonacci():
@@ -24,8 +24,8 @@ def getFibonacci(limit):
 
 
 def fibonacci(n):
-    if (n == 0): return 0
-    if (n == 1): return 1
+    if n == 0: return 0
+    if n == 1: return 1
     return fibonacci(n - 1) + fibonacci(n - 2)
 
 
@@ -71,7 +71,6 @@ def fibonacci_by_memoize_measure():
 
 def fibonacci_by_cache_measure():
     return utils.measure(fibonacci_bottom_up())
-
 
 
 def main():
