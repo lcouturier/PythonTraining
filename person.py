@@ -1,6 +1,5 @@
 import copy
 
-from annotations import measure
 from gender import Gender
 
 
@@ -57,6 +56,11 @@ class Person:
     def __lt__(self, other):
         return self.age < other.age
 
+    def __setattr__(self, key, value):
+        if key == "age" and value < 0:
+            raise ValueError("Age cannot be negative")
+        super().__setattr__(key, value)
+
     def to_dict(self):
         return {
             "last_name": self.last_name,
@@ -103,7 +107,6 @@ class Person:
     def greet(self):
         return f"Hello, my name is {self.full_name()} and I am {self.age} years old."  # noqa: E501
 
-    @measure
     def birthday(self):
         self.age += 1
         return f"Happy birthday {self.first_name}! You are now {self.age} years old."

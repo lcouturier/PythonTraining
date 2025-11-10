@@ -1,4 +1,7 @@
 import time
+from collections import namedtuple
+
+Result = namedtuple("Result", ["duration", "value"])
 
 
 def memoize(f):
@@ -35,7 +38,7 @@ def memoize(f):
     return inner
 
 
-def measure(f):
+def measure(f: callable):
     """
     Measures the execution time of a given function.
 
@@ -47,14 +50,14 @@ def measure(f):
     Returns
     -------
     callable
-        A function that takes one argument and returns a tuple
+        A function that takes one argument and returns a Result
         containing the execution time and the result of calling
         the original function with that argument.
 
     Examples
     --------
     @measure
-    def slow_function(x):
+    def slow_function(x: int) -> int:
         time.sleep(1)
         return x * x
     time_taken, result = slow_function(4)
@@ -65,10 +68,45 @@ def measure(f):
     Result: 16
     """
 
-    def inner(value):
+    def inner(value: any) -> Result:
         start = time.time()
         result = f(value)
         end = time.time()
-        return end - start, result
+        return Result(end - start, result)
+
+    return inner
+
+
+def log(f):
+    """
+    A decorator that logs the arguments and return value of a function.
+
+    Parameters
+    ----------
+    f : callable
+        The function to be logged.
+
+    Returns
+    -------
+    callable
+        A function that takes arbitrary arguments and keyword arguments
+        and returns the result of calling the original function with
+        those arguments and keyword arguments.
+
+    Examples
+    --------
+    @log
+    def add(a, b):
+        return a + b
+    result = add(3, 4)
+    print(f"Result: {result}")
+    Result: 7
+    """
+
+    def inner(*args, **kwargs):
+        print(f"Calling {f.__name__} with args={args} and kwargs={kwargs}")
+        result = f(*args, **kwargs)
+        print(f"{f.__name__} returned {result}")
+        return result
 
     return inner

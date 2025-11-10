@@ -68,5 +68,5 @@ def primes():
 
 
 def main():
-    for p in map_index(["apple", "banana", "cherry"]):
-        print(p)
+    for (index, item) in map_index(["apple", "banana", "cherry"]):
+        print(index)

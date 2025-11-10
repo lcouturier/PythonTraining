@@ -1,5 +1,50 @@
-.idea/copilot.data.migration.agent.xml
-.idea/copilot.data.migration.ask.xml
-.idea/copilot.data.migration.ask2agent.xml
-.idea/copilot.data.migration.edit.xml
-.idea/workspace.xml
+# === PyCharm / JetBrains ===
+*.iml
+*.ipr
+*.iws
+
+# === Mypy / Pyre / Pylint ===
+.mypy_cache/
+.pyre/
+pylint-report.txt
+pylint.log
+
+# === IDEs ===
+.vscode/
+.idea/
+.spyproject/
+.ropeproject/
+
+# === Environnements virtuels ===
+venv/
+.env/
+.venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# === Fichiers de configuration / cache Python ===
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.cache
+*.mypy_cache/
+*.pytest_cache/
+.pytest_cache/
+.cache/
+.dmypy.json
+.dmypy/
+
+# === Test / coverage ===
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/
+.coverage
+.coverage.*
