@@ -6,9 +6,9 @@ from typing import Iterator
 
 def load_lines(filename: str) -> Iterator[str]:
     try:
-        with open(filename, 'r') as f:
+        with open(filename, "r") as f:
             for line in f:
-                yield line.rstrip('\n')
+                yield line.rstrip("\n")
     except FileNotFoundError:
         print(f"File {filename} not found.")
         return iter([])
@@ -41,7 +41,7 @@ def unfold(v, f):
 
 def loop(limit):
     for i in it.takewhile(lambda x: x < limit, unfold(1, lambda x: x + 1)):
-        print('%.2d' % i)
+        print("%.2d" % i)
 
 
 def is_prime(value):
@@ -68,5 +68,5 @@ def primes():
 
 
 def main():
-    for (index, item) in map_index(["apple", "banana", "cherry"]):
+    for index, item in map_index(["apple", "banana", "cherry"]):
         print(index)

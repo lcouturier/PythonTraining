@@ -5,21 +5,21 @@ from gender import Gender
 
 class Person:
     def __init__(
-            self,
-            last_name: str,
-            first_name: str,
-            age: int,
-            gender: Gender | None,
-            email: str = None,
+        self,
+        last_name: str,
+        first_name: str,
+        age: int,
+        gender: Gender | None,
+        email: str | None = None,
     ):
         self.last_name = last_name
         self.first_name = first_name
         self.age = age
         self.gender = gender is not None and gender or Gender.UNKNOWN
         self.email = (
-                email is not None
-                and email
-                or f"{first_name.lower()}.{last_name.lower()}@example.com"
+            email is not None
+            and email
+            or f"{first_name.lower()}.{last_name.lower()}@example.com"
         )
 
     def __repr__(self):
@@ -30,9 +30,9 @@ class Person:
 
     def __eq__(self, other):
         return (
-                self.last_name == other.last_name
-                and self.first_name == other.first_name
-                and self.age == other.age
+            self.last_name == other.last_name
+            and self.first_name == other.first_name
+            and self.age == other.age
         )
 
     def __bool__(self):

@@ -22,7 +22,7 @@ class MyTestCase(unittest.TestCase):
 
     def test_person_age_negative(self):
         with self.assertRaises(ValueError):
-            p = Person("Doe", "John", -5, gender=Gender.MALE)
+            Person("Doe", "John", -5, gender=Gender.MALE)
 
     def test_person_clone(self):
         p1 = Person("Doe", "John", 30, gender=Gender.MALE, email="laurent.couturier@gmail.com")

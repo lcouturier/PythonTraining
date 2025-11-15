@@ -30,7 +30,12 @@ class Gender(Enum):
         :return: A function that maps an ordinal to a Gender.
         :rtype: Callable[[int], Gender]
         """
-        gender_map = {0: Gender.UNKNOWN, 1: Gender.MALE, 2: Gender.FEMALE, 3: Gender.OTHER}
+        gender_map = {
+            0: Gender.UNKNOWN,
+            1: Gender.MALE,
+            2: Gender.FEMALE,
+            3: Gender.OTHER,
+        }
 
         def map_ordinal_to_gender(ordinal):
             """

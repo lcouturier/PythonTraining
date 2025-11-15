@@ -1,5 +1,15 @@
 import itertools as it
 
+from annotations import measure
+
+
+@measure
+def another_factorial(limit):
+    values = [1, 1]
+    for i in range(2, limit + 1):
+        values.append(values[i - 1] * i)
+    return values
+
 
 def factorial_by_seq():
     (x, y) = (1, 1)
@@ -36,7 +46,7 @@ def generate_factorial(limit):
         yield i
 
 
-def factorial(limit):
+def run(limit):
     for i in generate_factorial(limit):
         print(i)
 
@@ -68,5 +78,5 @@ def main():
     print(result)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

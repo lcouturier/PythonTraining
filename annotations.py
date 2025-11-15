@@ -1,5 +1,6 @@
 import time
 from collections import namedtuple
+from typing import Any
 
 Result = namedtuple("Result", ["duration", "value"])
 
@@ -38,7 +39,7 @@ def memoize(f):
     return inner
 
 
-def measure(f: callable):
+def measure(f):
     """
     Measures the execution time of a given function.
 
@@ -68,7 +69,7 @@ def measure(f: callable):
     Result: 16
     """
 
-    def inner(value: any) -> Result:
+    def inner(value: Any) -> Result:
         start = time.time()
         result = f(value)
         end = time.time()
@@ -110,3 +111,14 @@ def log(f):
         return result
 
     return inner
+
+
+# def safe(f):
+#     def inner(*args, **kwargs):
+#         try:
+#             return f(*args, **kwargs)
+#         except Exception as e:
+#             print(f"Error: {e}")
+#             return None
+
+#     return inner

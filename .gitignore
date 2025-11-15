@@ -48,3 +48,7 @@ coverage.xml
 .hypothesis/
 .coverage
 .coverage.*
+.DS_Store
+.idea/workspace.xml
+.vscode/settings.json
+__pycache__/utils.cpython-312.pyc

@@ -23,9 +23,11 @@ def get_fibonacci(limit):
     return items
 
 
-def fibonacci(n):
-    if n == 0: return 0
-    if n == 1: return 1
+def fibonacci_first(n):
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
     return fibonacci(n - 1) + fibonacci(n - 2)
 
 
@@ -34,8 +36,10 @@ def fibonacci_by_cache():
 
     def inner_fibonacci(key):
         if key not in cache:
-            if key == 0: return 0
-            if key == 1: return 1
+            if key == 0:
+                return 0
+            if key == 1:
+                return 1
             cache[key] = inner_fibonacci(key - 1) + inner_fibonacci(key - 2)
         return cache[key]
 
@@ -89,5 +93,5 @@ def main():
     print(time)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -44,6 +44,13 @@ class Vector:
     def __ne__(self, other):
         return not self.__eq__(other)
 
+    def __setattr__(self, key, value):
+        if key == "x" and value < 0:
+            raise ValueError("x cannot be negative")
+        if key == "y" and value < 0:
+            raise ValueError("y cannot be negative")
+        super().__setattr__(key, value)
+
 
 def main():
     v1 = Vector(3, 4)
