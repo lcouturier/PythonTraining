@@ -1,7 +1,7 @@
 import utils
 
 
-def fibonacci():
+def fibonacci() :
     while True:
         x, y = (0, 1)
         yield x
