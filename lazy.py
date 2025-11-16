@@ -1,22 +1,29 @@
-from typing import Callable
+from typing import Callable, Generic, List, TypeVar
+
+T = TypeVar("T")
 
 
-class Lazy:
-    data = None
+class Lazy(Generic[T]):
+    data: T
+    is_evaluted: bool = False
 
     def __init__(self, f: Callable):
         self.f = f
 
     def __call__(self):
-        if self.data is None:
+        if not self.is_evaluted:
             self.data = self.f()
+            self.is_evaluted = True
         return self.data
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return f"Lazy({self.f})"
 
-    def __str__(self) -> str:
-        return f"Lazy({self.f})"
+    def __str__(self):
+        return f"Lazy({self.f}) has value: {self.is_evaluted}"
+
+    def __bool__(self):
+        return self.is_evaluted
 
     @staticmethod
     def of(value: Callable) -> "Lazy":
@@ -30,7 +37,7 @@ class Lazy:
         :return: True if the value has been evaluated, False otherwise.
         :rtype: bool
         """
-        return self.data is not None
+        return self.is_evaluted
 
     @property
     def is_empty(self) -> bool:
@@ -40,11 +47,17 @@ class Lazy:
         :return: True if the value is empty, False otherwise.
         :rtype: bool
         """
-        return self.data is None
+        return not self.is_evaluted
 
     @property
     def value(self):
-        return self()
+        if not self.is_evaluted:
+            self.data = self.f()
+            self.is_evaluted = True
+        return self.data
+
+    def reset(self):
+        self.is_evaluted = False
 
 
 def my_function():
@@ -52,12 +65,19 @@ def my_function():
 
 
 if __name__ == "__main__":
-    lazy = Lazy(lambda: [1, 2, 3])
+    lazy = Lazy[List[int]](lambda: [1, 2, 3])
     print(lazy())
     print(lazy())
 
     print("----")
-    lazy = Lazy(my_function)
+    lazy = Lazy[str](my_function)
+    print(str(lazy))
     print(lazy.has_value)
     print(lazy.value)
     print(lazy.has_value)
+    print(str(lazy))
+    lazy.reset()
+    print(lazy.has_value)
+    print(lazy.value)
+    print(lazy.has_value)
+    print(str(lazy))
