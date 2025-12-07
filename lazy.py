@@ -4,60 +4,53 @@ T = TypeVar("T")
 
 
 class Lazy(Generic[T]):
-    data: T
-    is_evaluted: bool = False
+    """
+    Lazily computes and caches the result of a function upon first access.
+    """
 
-    def __init__(self, f: Callable):
-        self.f = f
+    __slots__ = ("_func", "_evaluated", "_value")
 
-    def __call__(self):
-        if not self.is_evaluted:
-            self.data = self.f()
-            self.is_evaluted = True
-        return self.data
+    def __init__(self, f: Callable[[], T]) -> None:
+        self._func: Callable[[], T] = f
+        self._evaluated: bool = False
+        self._value: T | None = None
 
-    def __repr__(self):
-        return f"Lazy({self.f})"
+    def __call__(self) -> T:
+        return self.value
 
-    def __str__(self):
-        return f"Lazy({self.f}) has value: {self.is_evaluted}"
+    def __repr__(self) -> str:
+        return f"Lazy({self._func!r})"
 
-    def __bool__(self):
-        return self.is_evaluted
+    def __str__(self) -> str:
+        return f"value: {self.value!r}"
+
+    def __bool__(self) -> bool:
+        return self._evaluated
 
     @staticmethod
-    def of(value: Callable) -> "Lazy":
-        return Lazy(lambda: value)
+    def of(func: Callable[[], T]) -> "Lazy[T]":
+        return Lazy(func)
 
     @property
     def has_value(self) -> bool:
-        """
-        Check if the lazy value has been evaluated.
-
-        :return: True if the value has been evaluated, False otherwise.
-        :rtype: bool
-        """
-        return self.is_evaluted
+        return self._evaluated
 
     @property
     def is_empty(self) -> bool:
-        """
-        Check if the lazy value is empty.
-
-        :return: True if the value is empty, False otherwise.
-        :rtype: bool
-        """
-        return not self.is_evaluted
+        return not self._evaluated
 
     @property
-    def value(self):
-        if not self.is_evaluted:
-            self.data = self.f()
-            self.is_evaluted = True
-        return self.data
+    def value(self) -> T:
+        if not self._evaluated:
+            self._value = self._func()
+            self._evaluated = True
+        # Defensive for mypy: after _evaluated is True, _value is not None.
+        assert self._value is not None
+        return self._value
 
-    def reset(self):
-        self.is_evaluted = False
+    def reset(self) -> None:
+        self._evaluated = False
+        self._value = None
 
 
 def my_function():
@@ -70,14 +63,15 @@ if __name__ == "__main__":
     print(lazy())
 
     print("----")
-    lazy = Lazy[str](my_function)
-    print(str(lazy))
-    print(lazy.has_value)
-    print(lazy.value)
-    print(lazy.has_value)
-    print(str(lazy))
-    lazy.reset()
-    print(lazy.has_value)
-    print(lazy.value)
-    print(lazy.has_value)
-    print(str(lazy))
+    lazy_str = Lazy[str](my_function)
+    print(str(lazy_str))
+    print(lazy_str.has_value)
+    print(lazy_str.value)
+    print(lazy_str.has_value)
+    print(str(lazy_str))
+    lazy_str.reset()
+    print("reset")
+    print(lazy_str.has_value)
+    print(lazy_str.value)
+    print(lazy_str.has_value)
+    print(str(lazy_str))

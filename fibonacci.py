@@ -1,18 +1,26 @@
+from annotations import cache
 import utils
 
 
-def fibonacci() :
+@cache
+def fibonacci_cached(n: int) -> int:
+    """Returns the nth Fibonacci number using cache decorator."""
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
+    return fibonacci_cached(n - 1) + fibonacci_cached(n - 2)
+
+
+def fibonacci():
+    x, y = 0, 1
     while True:
-        x, y = (0, 1)
         yield x
-        yield y
-        while True:
-            x, y = x + y, x
-            yield x
+        x, y = y, x + y
 
 
-def get_fibonacci(limit):
-    items = []
+def get_fibonacci(limit: int) -> list[int]:
+    items: list[int] = []
     count = 0
     for i in fibonacci():
         items.append(i)
@@ -23,7 +31,7 @@ def get_fibonacci(limit):
     return items
 
 
-def fibonacci_first(n):
+def fibonacci_first(n: int):
     if n == 0:
         return 0
     if n == 1:
@@ -65,6 +73,7 @@ def fibonacci_bottom_up():
     return inner
 
 
+@cache
 def fibonacci_by_recurse_measure():
     return utils.measure(fibonacci)
 
@@ -78,19 +87,12 @@ def fibonacci_by_cache_measure():
 
 
 def main():
-    f2 = fibonacci_by_memoize_measure()
+    f2 = fibonacci_by_recurse_measure()
     result = f2(100)
     print(result)
 
-    result = f2(10)
+    result = f2(100)
     print(result)
-
-    f3 = fibonacci_by_cache_measure()
-    (time, result) = f3(100)
-    print(time)
-
-    (time, result) = f3(10)
-    print(time)
 
 
 if __name__ == "__main__":

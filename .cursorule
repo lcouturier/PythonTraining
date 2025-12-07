@@ -1,0 +1,18 @@
+Cursor Rules — Pythonic Strict
+
+[format] indent = 4 line_length = 88 quote_style = “double”
+trailing_commas = true ensure_newline_at_eof = true
+
+[python] version = “3.11” type_checking = true
+prefer_list_comprehensions = true prefer_generator_expressions = true
+prefer_context_managers = true prefer_dataclasses = true enforce_fstring
+= true avoid_mutable_defaults = true strict_none_checks = true
+
+[lint] enable = [“ruff”, “mypy”] ignore = []
+
+[ruff] select = [“E”, “F”, “W”, “B”, “I”, “UP”, “C4”, “SIM”]
+target_version = “py311” line_length = 88
+
+[mypy] strict = true warn_unused_configs = true warn_redundant_casts =
+true warn_unused_ignores = true disallow_untyped_defs = true
+disallow_incomplete_defs = true

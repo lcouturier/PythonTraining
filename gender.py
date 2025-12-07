@@ -2,50 +2,48 @@ from enum import Enum
 
 
 class Gender(Enum):
-    UNKNOWN = "Unknown"
-    MALE = "Male"
-    FEMALE = "Female"
-    OTHER = "Other"
+    FEMALE = "Féminin"
+    MALE = "Masculin"
+    NON_BINARY = "Non-Binaire"
+    OTHER = "Autre"
+    PREFER_NOT_SAY = "Préfère ne pas dire"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.value
 
-    @staticmethod
-    def from_str(label):
-        match label.lower():
-            case "male":
-                return Gender.MALE
-            case "female":
-                return Gender.FEMALE
-            case "other":
-                return Gender.OTHER
-            case _:
-                raise ValueError(f"Unknown gender: {label}")
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}.{self.name}"
+
+    def __bool__(self) -> bool:
+        return self is not Gender.OTHER
 
     @staticmethod
-    def from_ordinal():
-        """
-        Returns a function that maps an ordinal to a Gender.
-
-        :return: A function that maps an ordinal to a Gender.
-        :rtype: Callable[[int], Gender]
-        """
-        gender_map = {
-            0: Gender.UNKNOWN,
-            1: Gender.MALE,
-            2: Gender.FEMALE,
-            3: Gender.OTHER,
+    def from_str(label: str) -> "Gender":
+        normalized = label.strip().lower()
+        mapping = {
+            "female": Gender.FEMALE,
+            "féminin": Gender.FEMALE,
+            "male": Gender.MALE,
+            "masculin": Gender.MALE,
+            "non-binary": Gender.NON_BINARY,
+            "non binaire": Gender.NON_BINARY,
+            "non-binaire": Gender.NON_BINARY,
+            "other": Gender.OTHER,
+            "autre": Gender.OTHER,
+            "prefer not say": Gender.PREFER_NOT_SAY,
+            "préfère ne pas dire": Gender.PREFER_NOT_SAY,
         }
+        try:
+            return mapping[normalized]
+        except KeyError as exc:
+            raise ValueError(f"Unknown gender: {label}") from exc
 
-        def map_ordinal_to_gender(ordinal):
-            """
-            Maps an ordinal to a Gender.
-
-            :param ordinal: The ordinal to map.
-            :type ordinal: int
-            :return: The corresponding Gender.
-            :rtype: Gender
-            """
-            return gender_map.get(ordinal, Gender.UNKNOWN)
-
-        return map_ordinal_to_gender
+    @classmethod
+    def from_ordinal(cls, ordinal: int) -> "Gender":
+        if not isinstance(ordinal, int):
+            return cls.OTHER
+        # Enum iteration order guaranteed in Python 3.11+
+        members = list(cls)
+        if 0 <= ordinal < len(members):
+            return members[ordinal]
+        return cls.OTHER

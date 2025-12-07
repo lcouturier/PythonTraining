@@ -1,143 +1,153 @@
-import copy
-
+from dataclasses import dataclass
+import enum
+from typing import Any, Optional
 from gender import Gender
 
 
+class Typology(enum.Enum):
+    """Enumeration for a person's age-based typology."""
+
+    CHILD = "Child"
+    TEENAGER = "Teenager"
+    ADULT = "Adult"
+    SENIOR = "Senior"
+
+    def __str__(self) -> str:
+        return self.value
+
+    @classmethod
+    def from_ordinal(cls, ordinal: int) -> "Typology":
+        """Return Typology member by its ordinal (declaration order).
+
+        Args:
+            ordinal (int): Index of the enum member (0-based).
+
+        Returns:
+            Typology: Corresponding Typology enum value.
+
+        Raises:
+            IndexError: If ordinal is out of range.
+        """
+        members = list(cls)
+        if 0 <= ordinal < len(members):
+            return members[ordinal]
+        raise IndexError(f"Ordinal {ordinal} is out of range for Typology enum.")
+
+
+@dataclass(frozen=True, order=True)
 class Person:
-    def __init__(
-        self,
-        last_name: str,
-        first_name: str,
-        age: int,
-        gender: Gender | None,
-        email: str | None = None,
-    ):
-        self.last_name = last_name
-        self.first_name = first_name
-        self.age = age
-        self.gender = gender is not None and gender or Gender.UNKNOWN
-        self.email = (
-            email is not None
-            and email
-            or f"{first_name.lower()}.{last_name.lower()}@example.com"
-        )
+    """Represents an immutable person with basic demographic information.
 
-    def __repr__(self):
-        return f"Person(last_name='{self.last_name}', first_name='{self.first_name}', age={self.age})"
+    Attributes:
+        last_name (str): The person's last name.
+        first_name (str): The person's first name.
+        age (int): The person's age in years.
+        gender (Gender, optional): The person's gender. Defaults to Gender.OTHER.
+        email (Optional[str], optional): The person's email address. Defaults to None.
+    """
 
-    def __str__(self):
+    last_name: str
+    first_name: str
+    age: int
+    gender: Gender = Gender.OTHER
+    email: Optional[str] = None
+
+    def full_name(self) -> str:
+        """Returns the person's full name in 'First Last' format.
+
+        Returns:
+            str: Full name in 'First Last' format.
+        """
+        return f"{self.first_name} {self.last_name}"
+
+    @property
+    def is_adult(self) -> bool:
+        """Determines if the person is an adult (18 years or older).
+
+        Returns:
+            bool: True if age >= 18, else False.
+        """
+        return self.age >= 18
+
+    @property
+    def is_senior(self) -> bool:
+        """Determines if the person is a senior (65 years or older).
+
+        Returns:
+            bool: True if age >= 65, else False.
+        """
+        return self.age >= 65
+
+    def __str__(self) -> str:
+        """Returns a readable string representation of the person.
+
+        Returns:
+            str: Human-readable description.
+        """
         return f"{self.last_name}, {self.first_name} ({self.age} years old)"
 
-    def __eq__(self, other):
+    def __repr__(self) -> str:
+        """Returns the official string representation of the Person.
+
+        Returns:
+            str: Representation containing all attributes.
+        """
         return (
-            self.last_name == other.last_name
-            and self.first_name == other.first_name
-            and self.age == other.age
+            f"Person("
+            f"last_name={self.last_name!r}, "
+            f"first_name={self.first_name!r}, "
+            f"age={self.age!r}, "
+            f"gender={self.gender!r}, "
+            f"email={self.email!r})"
         )
 
-    def __bool__(self):
-        return self.age > 0
+    @property
+    def typology(self) -> Typology:
+        """Provides the typological category for the person based on age.
 
-    def __iadd__(self, other):
-        if isinstance(other, int):
-            self.age += other
-            return self
-        raise TypeError("Operand must be an integer")
+        Returns:
+            Typology: One of Typology.CHILD, Typology.TEENAGER, Typology.ADULT, or Typology.SENIOR.
+        """
+        if self.age < 12:
+            return Typology.CHILD
+        if self.age < 20:
+            return Typology.TEENAGER
+        if self.age < 65:
+            return Typology.ADULT
+        return Typology.SENIOR
 
-    def __isub__(self, other):
-        if isinstance(other, int):
-            self.age -= other
-            return self
-        raise TypeError("Operand must be an integer")
+    def to_dict(self) -> dict[str, Any]:
+        """Converts the Person instance to a dictionary.
 
-    def __hash__(self):
-        return hash((self.last_name, self.first_name, self.age))
-
-    def __lt__(self, other):
-        return self.age < other.age
-
-    def __setattr__(self, key, value):
-        if key == "age" and value < 0:
-            raise ValueError("Age cannot be negative")
-        super().__setattr__(key, value)
-
-    def to_dict(self):
+        Returns:
+            dict[str, Any]: A dictionary representation of the person.
+        """
         return {
             "last_name": self.last_name,
             "first_name": self.first_name,
             "age": self.age,
+            "gender": self.gender.name,
+            "email": self.email,
         }
 
-    def to_tuple(self) -> tuple[str, str, int]:
-        return self.last_name, self.first_name, self.age
 
-    def to_string(self):
-        return f"{self.last_name}, {self.first_name}, {self.age}"
-
-    def is_adult(self) -> bool:
-        return self.age >= 18
-
-    def full_name(self) -> str:
-        return f"{self.first_name} {self.last_name}"
-
-    def initials(self):
-        return f"{self.first_name[0]}.{self.last_name[0]}"
-
-    @property
-    def is_senior(self):
-        return self.age >= 65
-
-    @property
-    def gender_str(self):
-        return self.gender.value
-
-    @property
-    def typology(self):
-        match self.age:
-            case age if age < 12:
-                return "Child"
-            case age if 12 <= age < 20:
-                return "Teenager"
-            case age if 20 <= age < 65:
-                return "Adult"
-            case _:
-                return "Senior"
-
-    @property
-    def greet(self):
-        return f"Hello, my name is {self.full_name()} and I am {self.age} years old."  # noqa: E501
-
-    def birthday(self):
-        self.age += 1
-        return f"Happy birthday {self.first_name}! You are now {self.age} years old."
-
-    def clone(self):
-        return copy.deepcopy(self)
+def _demo_person_usage() -> None:
+    """Demonstrates usage of the Person class."""
+    p1 = Person(
+        last_name="Doe",
+        first_name="John",
+        age=30,
+        gender=Gender.MALE,
+        email="laurent.couturier@gmail.com",
+    )
+    p2 = Person(last_name="Doe", first_name="Jane", age=25, gender=Gender.FEMALE)
+    print(p1)
+    print(p1.gender.value)
+    print(p2)
+    print(p1 == p2)
+    print(p1.is_adult)
+    print(p2.is_senior)
 
 
 if __name__ == "__main__":
-    v = Gender.from_str("female")
-    print(v)
-
-    p1 = Person(
-        "Doe", "John", 30, gender=Gender.MALE, email="laurent.couturier@gmail.com"
-    )
-    p2 = Person("Doe", "Jane", 25, gender=Gender.FEMALE)
-    print(p1)
-    print(p2)
-    print(p1 == p2)
-    print(p1.is_adult())
-    print(p2.is_senior)
-    print(p1.greet)
-    print(p2.birthday())
-    p3 = p1.clone()
-    print(p3)
-    print(p1 == p3)
-    p3 += 5
-    print(p1 == p3)
-    print(str(p1))
-    print(str(p2))
-    print(p1.email)
-    print(p1 < p3)
-    print(p1.birthday())
-    print(p2.birthday())
+    _demo_person_usage()

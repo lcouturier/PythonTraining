@@ -12,10 +12,10 @@ def another_factorial(limit):
 
 
 def factorial_by_seq():
-    (x, y) = (1, 1)
+    x, y = 1, 1
     while True:
         yield x
-        (x, y) = (x * y, y + 1)
+        x, y = x * y, y + 1
 
 
 def factorial(value):

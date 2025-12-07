@@ -1,9 +1,4 @@
-from functools import partial
-
-import utils
-
-
-def two_sum1(nums, target):
+def two_sum1(nums: list[int], target: int) -> list[int]:
     for i in range(len(nums)):
         for j in range(i + 1, len(nums)):
             if nums[i] + nums[j] == target:
@@ -11,18 +6,30 @@ def two_sum1(nums, target):
     return []
 
 
-def two_sum2(nums, target):
-    num_map = {}
+def two_sum2(nums: list[int], target: int) -> list[int]:
+    num_map: dict[int, int] = {}
     for i, num in enumerate(nums):
         num_map[num] = i
     for i, num in enumerate(nums):
-        complement = target - num
+        complement: int = target - num
         if complement in num_map and num_map[complement] != i:
             return [i, num_map[complement]]
     return []
 
 
-def two_sum3(nums, target):
+def two_sum3(nums: list[int], target: int) -> list[int]:
+    """
+    Returns a list of indices of two elements in the given list that
+    add up to the given target.
+
+    :param nums: A list of integers.
+    :type nums: list[int]
+    :param target: The target sum.
+    :type target: int
+    :return: A list of indices of two elements in the given list that
+        add up to the given target.
+    :rtype: list[int]
+    """
     num_map = {}
     for i, num in enumerate(nums):
         complement = target - num
@@ -32,14 +39,6 @@ def two_sum3(nums, target):
     return []
 
 
-if __name__ == '__main__':
-    c1 = partial(two_sum1, [2, 7, 11, 15])
-    s1 = utils.measure(c1)
-    c2 = partial(two_sum2, [2, 7, 11, 15])
-    s2 = utils.measure(c2)
-    c3 = partial(two_sum3, [2, 7, 11, 15])
-    s3 = utils.measure(c3)
-
-    print(s1(9))
-    print(s2(9))
-    print(s3(9))
+if __name__ == "__main__":
+    r = two_sum3([2, 7, 11, 15], 9)
+    print(r)

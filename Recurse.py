@@ -1,8 +1,8 @@
-def tail(items):
+def tail[T](items: list[T]) -> list[T]:
     return items[1:]
 
 
-def head(items):
+def head[T](items: list[T]) -> T:
     return items[0]
 
 

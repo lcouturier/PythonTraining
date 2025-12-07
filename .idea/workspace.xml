@@ -9,19 +9,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfd3eca8-5c06-4736-b41f-06c30f6775e9" name="Default" comment="Add annotations and linter configuration">
-      <change beforePath="$PROJECT_DIR$/.flake8" beforeDir="false" afterPath="$PROJECT_DIR$/.flake8" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Recurse.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recurse.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Training.py" beforeDir="false" afterPath="$PROJECT_DIR$/Training.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/annotations.py" beforeDir="false" afterPath="$PROJECT_DIR$/annotations.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compteur_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/compteur.py" beforeDir="false" afterPath="$PROJECT_DIR$/compteur.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/factorial.py" beforeDir="false" afterPath="$PROJECT_DIR$/factorial.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fibonacci.py" beforeDir="false" afterPath="$PROJECT_DIR$/fibonacci.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gender.py" beforeDir="false" afterPath="$PROJECT_DIR$/gender.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/annotations.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/gender.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_subset.py" beforeDir="false" afterPath="$PROJECT_DIR$/generate_subset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lazy.py" beforeDir="false" afterPath="$PROJECT_DIR$/lazy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/load_url.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/person.py" beforeDir="false" afterPath="$PROJECT_DIR$/person.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result.py" beforeDir="false" afterPath="$PROJECT_DIR$/result.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/gender_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/gender_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/lazy_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/lazy_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/person_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/person_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/result_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/result_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/two_sum.py" beforeDir="false" afterPath="$PROJECT_DIR$/two_sum.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils_test.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/vector.py" beforeDir="false" afterPath="$PROJECT_DIR$/vector.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -209,6 +216,7 @@
     &quot;Python.fibonacci.executor&quot;: &quot;Run&quot;,
     &quot;Python.first_occurence.executor&quot;: &quot;Run&quot;,
     &quot;Python.generate_subset.executor&quot;: &quot;Run&quot;,
+    &quot;Python.list_comprehension.executor&quot;: &quot;Run&quot;,
     &quot;Python.person.executor&quot;: &quot;Run&quot;,
     &quot;Python.two_sum.executor&quot;: &quot;Run&quot;,
     &quot;Python.utils.executor&quot;: &quot;Run&quot;,
@@ -230,12 +238,34 @@
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.leinardi.pycharm.pylint.PylintConfigurable&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.person">
+  <component name="RunManager">
+    <configuration name="list_comprehension" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PythonTraining" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/list_comprehension.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="person" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonTraining" />
       <option name="ENV_FILES" value="" />
@@ -295,21 +325,6 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Unittests for tests.factorial_test.MyTestCase" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <module name="PythonTraining" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;tests.factorial_test.MyTestCase&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
     <configuration name="Unittests in factorial_test.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="PythonTraining" />
       <option name="ENV_FILES" value="" />
@@ -325,20 +340,12 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.person" />
-        <item itemvalue="Python tests.Unittests for tests.annotations_test.TestLogDecorator" />
-        <item itemvalue="Python tests.Unittests in factorial_test.py" />
-        <item itemvalue="Python.two_sum" />
-        <item itemvalue="Python tests.Unittests for tests.factorial_test.MyTestCase" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-f69e5c277ee4-cbfc7b97e6b2-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-252.27397.106" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.28238.7" />
+        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-IU-252.28238.7" />
       </set>
     </attachedChunks>
   </component>
@@ -360,6 +367,7 @@
       <workItem from="1714983140173" duration="877000" />
       <workItem from="1715847667044" duration="6000" />
       <workItem from="1762349162824" duration="144000" />
+      <workItem from="1764949475437" duration="19000" />
     </task>
     <task id="LOCAL-00001" summary="Création du projet">
       <created>1514275181124</created>

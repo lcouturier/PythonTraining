@@ -1,79 +1,24 @@
+from functools import wraps
 import time
 from collections import namedtuple
-from typing import Any
+from typing import Any, Callable
 
 Result = namedtuple("Result", ["duration", "value"])
 
 
-def memoize(f):
+def measure(f: Callable[[Any], Any]) -> Callable[[Any], Result]:
     """
-    A decorator that caches the results of a function.
+    Decorator to measure the execution time of a function taking a single argument.
 
-    The function passed to `memoize` should take a single argument.
-    The return value of the function will be cached based on the argument.
-    The cached values will be stored in a dictionary which is returned by the decorator.
-
-    The decorator returns a new function which checks if the argument is in the cache.
-    If the argument is in the cache, it returns the cached value.
-    If the argument is not in the cache, it calls the original function with the argument,
-    caches the return value, and returns the return value.
-
-    Example:
-
-    @memoize
-    def fibonacci(n):
-        if n <= 1:
-            return n
-        return fibonacci(n-1) + fibonacci(n-2)
-
-    fibonacci(10)  # This will be computed and cached.
-    fibonacci(10)  # This will be retrieved from the cache.
-    """
-    cache = {}
-
-    def inner(key):
-        if key not in cache:
-            cache[key] = f(key)
-        return cache[key]
-
-    return inner
-
-
-def measure(f):
-    """
-    Measures the execution time of a given function.
-
-    Parameters
-    ----------
-    f : callable
-        The function to be measured.
-
-    Returns
-    -------
-    callable
-        A function that takes one argument and returns a Result
-        containing the execution time and the result of calling
-        the original function with that argument.
-
-    Examples
-    --------
-    @measure
-    def slow_function(x: int) -> int:
-        time.sleep(1)
-        return x * x
-    time_taken, result = slow_function(4)
-    print(f"Execution time: {time_taken:.2f} seconds")
-    print(f"Result: {result}")
-    Execution time: 1.00 seconds
-
-    Result: 16
+    Returns a function that, given an argument, returns a Result(duration, value).
     """
 
-    def inner(value: Any) -> Result:
+    @wraps(f)
+    def inner(arg: Any) -> Result:
         start = time.time()
-        result = f(value)
-        end = time.time()
-        return Result(end - start, result)
+        value = f(arg)
+        duration = time.time() - start
+        return Result(duration, value)
 
     return inner
 
@@ -113,12 +58,29 @@ def log(f):
     return inner
 
 
-# def safe(f):
-#     def inner(*args, **kwargs):
-#         try:
-#             return f(*args, **kwargs)
-#         except Exception as e:
-#             print(f"Error: {e}")
-#             return None
+def cache(f: Callable) -> Callable:
+    """
+    A decorator that caches the results of the decorated function
+    based on its arguments. Prevents redundant computations by using
+    a dictionary keyed by argument tuples.
+    example:
 
-#     return inner
+    @cache
+    def fibonacci(n):
+        if n == 0:
+            return 0
+        if n == 1:
+            return 1
+        return fibonacci(n - 1) + fibonacci(n - 2)
+    """
+    cache_dict = {}
+
+    @wraps(f)
+    def inner(*args, **kwargs):
+        # Use a tuple of args and frozenset of kwargs as the dictionary key for safety and hashability
+        key = (args, frozenset(kwargs.items()))
+        if key not in cache_dict:
+            cache_dict[key] = f(*args, **kwargs)
+        return cache_dict[key]
+
+    return inner

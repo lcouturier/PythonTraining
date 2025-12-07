@@ -9,23 +9,32 @@ def first_occurring_char(value):
         dic[c] = 1
 
 
-def max_occurring_char(value):
-    dic = {}
-    i = 0
-    previous = value[0]
-    for c in value:
-        if c in dic:
-            if c == previous:
-                dic[c] = dic[c] + 1
-            else:
-                dic[c] = 1
-        else:
-            dic[c] = 1
-        i = i + 1
-        previous = value[i - 1]
+def max_occurring_char(value: str) -> str:
+    """
+    Returns the character with the highest number of consecutive occurrences.
+    If there are multiple, returns the first such character found.
+    """
+    if not value:
+        raise ValueError("Input string must not be empty.")
 
-    d = {v: k for k, v in dic.items()}
-    return d[max(d)]
+    max_char = value[0]
+    max_count = 1
+    curr_char = value[0]
+    curr_count = 1
+
+    for c in value[1:]:
+        if c == curr_char:
+            curr_count += 1
+        else:
+            if curr_count > max_count:
+                max_char = curr_char
+                max_count = curr_count
+            curr_char = c
+            curr_count = 1
+    if curr_count > max_count:
+        max_char = curr_char
+
+    return max_char
 
 
 def main():
@@ -33,5 +42,5 @@ def main():
     print(result)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
