@@ -3,7 +3,10 @@ from enum import Enum
 from typing import Iterator
 
 
-items = ["L68", "L30", "R48", "L5", "R60", "L55", "L1", "L99", "R14", "L82"]
+from annotations import composable
+
+
+# items = ["L68", "L30", "R48", "L5", "R60", "L55", "L1", "L99", "R14", "L82"]
 
 
 class Direction(Enum):
@@ -13,13 +16,9 @@ class Direction(Enum):
 
     @classmethod
     def from_string(cls, value: str) -> "Direction":
-        match value:
-            case "L":
-                return cls.LEFT
-            case "R":
-                return cls.RIGHT
-            case _:
-                return cls.INVALID
+        if value not in ["L", "R"]:
+            return ValueError(f"Invalid direction: {value}")
+        return cls.LEFT if value == "L" else cls.RIGHT
 
 
 @dataclass
@@ -28,6 +27,7 @@ class Rotation:
     value: int
 
 
+@composable
 def read_file(filename: str) -> Iterator[str]:
     with open(filename, "r") as file:
         yield from (line.strip("\n") for line in file)
@@ -39,37 +39,35 @@ def translate_to_rotation(item: str) -> Rotation:
     return Rotation(Direction.from_string(direction), int(value))
 
 
-def filter_direction(items):
-    return filter(lambda x: x[0] in ["L", "R"], items)
-
-
 def get_rotations(items: list[str]) -> Iterator[Rotation]:
-    return map(translate_to_rotation, filter(filter_direction, items))
+    return (translate_to_rotation(item) for item in items if item[0] in ["L", "R"])
 
 
-def process_rotations(items) -> int:
-    count = 0
-    start = 50
+def process_rotations(start: int, items: list[str]) -> int:
     MAX_VALUE = 100
-
+    apply = {
+        Direction.LEFT: lambda x, y: (x - y) % MAX_VALUE,
+        Direction.RIGHT: lambda x, y: (x + y) % MAX_VALUE,
+    }
+    count = 0
     for item in get_rotations(items):
-        match item.direction:
-            case Direction.LEFT:
-                temp = (start - item.value) % MAX_VALUE
-                start = temp if (temp >= 0) else MAX_VALUE + temp
-            case Direction.RIGHT:
-                temp = (start + item.value) % MAX_VALUE
-                start = temp - MAX_VALUE if (temp >= MAX_VALUE) else temp
-            case Direction.INVALID:
-                raise ValueError("Invalid direction in item: {}".format(item))
-
-        if start == 0:
-            count += 1
-
+        start = apply[item.direction](start, item.value)
+        count += start == 0
     return count
 
 
+@composable
+def compute_rotations(items):
+    return process_rotations(50, items)
+
+
+def pipeline(value, *funcs):
+    for fn in funcs:
+        value = fn(value)
+    return value
+
+
 if __name__ == "__main__":
-    items = read_file("exo1.txt")
-    count = process_rotations(items)
-    print(count)
+    f = read_file >> compute_rotations
+
+    print(f("exo1.txt"))

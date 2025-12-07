@@ -6,6 +6,17 @@ from typing import Any, Callable
 Result = namedtuple("Result", ["duration", "value"])
 
 
+class composable:
+    def __init__(self, f):
+        self.f = f
+
+    def __rshift__(self, other):
+        return composable(lambda x: other.f(self.f(x)))
+
+    def __call__(self, x):
+        return self.f(x)
+
+
 def measure(f: Callable[[Any], Any]) -> Callable[[Any], Result]:
     """
     Decorator to measure the execution time of a function taking a single argument.
