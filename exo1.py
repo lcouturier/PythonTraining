@@ -1,8 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
+from functools import reduce
 from typing import Iterator
-
-
 from annotations import composable
 
 
@@ -39,35 +38,25 @@ def translate_to_rotation(item: str) -> Rotation:
     return Rotation(Direction.from_string(direction), int(value))
 
 
-def get_rotations(items: list[str]) -> Iterator[Rotation]:
-    return (translate_to_rotation(item) for item in items if item[0] in ["L", "R"])
-
-
-def process_rotations(start: int, items: list[str]) -> int:
+def acc_func(acc, item: Rotation):
     MAX_VALUE = 100
     apply = {
         Direction.LEFT: lambda x, y: (x - y) % MAX_VALUE,
         Direction.RIGHT: lambda x, y: (x + y) % MAX_VALUE,
     }
-    count = 0
-    for item in get_rotations(items):
-        start = apply[item.direction](start, item.value)
-        count += start == 0
+
+    start_val, count = acc
+    new_start = apply[item.direction](start_val, item.value)
+    count += new_start == 0
+    return (new_start, count)
+
+
+def process_rotations(start: int, items: list[str]) -> int:
+    items = (translate_to_rotation(item) for item in items if item[0] in ["L", "R"])
+    _, count = reduce(acc_func, items, (start, 0))
     return count
 
 
-@composable
-def compute_rotations(items):
-    return process_rotations(50, items)
-
-
-def pipeline(value, *funcs):
-    for fn in funcs:
-        value = fn(value)
-    return value
-
-
 if __name__ == "__main__":
-    f = read_file >> compute_rotations
-
-    print(f("exo1.txt"))
+    count = process_rotations(50, read_file("exo1.txt"))
+    print(count)
