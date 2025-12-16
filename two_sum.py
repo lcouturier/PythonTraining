@@ -1,3 +1,7 @@
+from utils import measure
+
+
+@measure
 def two_sum1(nums: list[int], target: int) -> list[int]:
     for i in range(len(nums)):
         for j in range(i + 1, len(nums)):
@@ -6,6 +10,7 @@ def two_sum1(nums: list[int], target: int) -> list[int]:
     return []
 
 
+@measure
 def two_sum2(nums: list[int], target: int) -> list[int]:
     num_map: dict[int, int] = {}
     for i, num in enumerate(nums):
@@ -17,19 +22,8 @@ def two_sum2(nums: list[int], target: int) -> list[int]:
     return []
 
 
-def two_sum3(nums: list[int], target: int) -> list[int]:
-    """
-    Returns a list of indices of two elements in the given list that
-    add up to the given target.
-
-    :param nums: A list of integers.
-    :type nums: list[int]
-    :param target: The target sum.
-    :type target: int
-    :return: A list of indices of two elements in the given list that
-        add up to the given target.
-    :rtype: list[int]
-    """
+@measure
+def two_sum3(nums, target):
     num_map = {}
     for i, num in enumerate(nums):
         complement = target - num
@@ -40,5 +34,7 @@ def two_sum3(nums: list[int], target: int) -> list[int]:
 
 
 if __name__ == "__main__":
-    r = two_sum3([2, 7, 11, 15], 9)
-    print(r)
+    items = [2, 7, 11, 15, 9, 12, 5, 4]
+    print(two_sum1(items, 16))
+    print(two_sum2(items, 16))
+    print(two_sum3(items, 16))

@@ -1,6 +1,10 @@
 # Exercises
 
 
+import heapq
+from utils import measure
+
+
 def first_occurring_char(value):
     dic = {}
     for c in value:
@@ -9,6 +13,7 @@ def first_occurring_char(value):
         dic[c] = 1
 
 
+@measure
 def max_occurring_char(value: str) -> str:
     """
     Returns the character with the highest number of consecutive occurrences.
@@ -37,9 +42,25 @@ def max_occurring_char(value: str) -> str:
     return max_char
 
 
+@measure
+def max_occurring_char_v1(value):
+    frequency = {}
+    for i in value:
+        frequency[i] = frequency.get(i, 0) + 1
+
+    heap = []
+    for item, freq in frequency.items():
+        heapq.heappush(heap, (freq, item))
+        if len(heap) > 1:
+            heapq.heappop(heap)
+
+    return heap[0]
+
+
 def main():
-    result = max_occurring_char("AABBBDDADDDDCCCBBAAA")
-    print(result)
+    items = "AABBBDDADDDDCCCBBAAAAAABBBDDADDDDCCCBBAAAAABBBDDADDDDCCCBBAAAAABBBDDADDDDCCCBBAAA"
+    print(max_occurring_char(items))
+    print(max_occurring_char_v1(items))
 
 
 if __name__ == "__main__":

@@ -1,7 +1,8 @@
 from functools import wraps
+from threading import Lock
 import time
 from collections import namedtuple
-from typing import Any, Callable
+from typing import Any, Callable, OrderedDict
 
 Result = namedtuple("Result", ["duration", "value"])
 
@@ -95,3 +96,26 @@ def cache(f: Callable) -> Callable:
         return cache_dict[key]
 
     return inner
+
+
+def my_lru_cache(max_size: int) -> Callable:
+    cache: OrderedDict[str, Any] = OrderedDict[str, Any]()
+    lock = Lock()
+
+    def decorator(f: Callable) -> Callable:
+        def inner(*args, **kwargs):
+            key = (args, frozenset(kwargs.items()))
+            with lock:
+                if key in cache:
+                    return cache[key]
+            result = f(*args, **kwargs)
+            with lock:
+                cache[key] = result
+                if len(cache) > max_size:
+                    # Supprime le plus ancien élément du cache (la clé insérée en premier), pour respecter la taille maximale du cache LRU.
+                    cache.popitem(last=False)
+            return result
+
+        return inner
+
+    return decorator

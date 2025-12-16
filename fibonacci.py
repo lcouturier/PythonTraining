@@ -1,5 +1,5 @@
 from annotations import cache
-import utils
+from utils import measure
 
 
 @cache
@@ -13,10 +13,10 @@ def fibonacci_cached(n: int) -> int:
 
 
 def fibonacci():
-    x, y = 0, 1
+    a, b = 0, 1
     while True:
-        yield x
-        x, y = y, x + y
+        yield a
+        a, b = b, a + b
 
 
 def get_fibonacci(limit: int) -> list[int]:
@@ -31,34 +31,45 @@ def get_fibonacci(limit: int) -> list[int]:
     return items
 
 
-def fibonacci_first(n: int):
-    if n == 0:
-        return 0
-    if n == 1:
-        return 1
-    return fibonacci(n - 1) + fibonacci(n - 2)
-
-
-def fibonacci_by_cache():
-    cache = {}
-
-    def inner_fibonacci(key):
-        if key not in cache:
-            if key == 0:
-                return 0
-            if key == 1:
-                return 1
-            cache[key] = inner_fibonacci(key - 1) + inner_fibonacci(key - 2)
-        return cache[key]
-
-    return inner_fibonacci
-
-
 def max_key_dictionary(d):
     return max(d, key=d.get)
 
 
+def fibonacci_top_down():
+    """
+    Returns the nth Fibonacci number using a top-down approach and cache.
+
+    The function starts with an empty cache and recursively calculates the Fibonacci
+    numbers from the top down. The intermediate Fibonacci numbers are cached for
+    later use.
+
+    This approach has a time complexity of O(n) and a space complexity of O(n).
+    """
+    cache = {}
+
+    def inner(key):
+        if key in cache:
+            return cache[key]
+        if key == 0:
+            return 0
+        if key == 1:
+            return 1
+        cache[key] = inner(key - 1) + inner(key - 2)
+        return cache[key]
+
+    return inner
+
+
 def fibonacci_bottom_up():
+    """
+    Returns the nth Fibonacci number using a bottom-up approach and cache.
+
+    The function starts with a cache containing the Fibonacci numbers for 0 and 1.
+    It then iterates from the last cached Fibonacci number to the nth Fibonacci number.
+    The intermediate Fibonacci numbers are calculated and cached for later use.
+
+    This approach has a time complexity of O(n) and a space complexity of O(n).
+    """
     cache = {0: 0, 1: 1}
 
     def inner(key):
@@ -73,21 +84,8 @@ def fibonacci_bottom_up():
     return inner
 
 
-@cache
-def fibonacci_by_recurse_measure():
-    return utils.measure(fibonacci)
-
-
-def fibonacci_by_memoize_measure():
-    return utils.measure(fibonacci_by_cache())
-
-
-def fibonacci_by_cache_measure():
-    return utils.measure(fibonacci_bottom_up())
-
-
 def main():
-    f2 = fibonacci_by_recurse_measure()
+    f2 = measure(fibonacci_bottom_up())  # fibonacci_top_down()
     result = f2(100)
     print(result)
 
