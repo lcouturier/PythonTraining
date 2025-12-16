@@ -1,7 +1,10 @@
 import itertools as it
 import math
 import random
-from typing import Callable, Iterator
+from typing import Callable, Iterator, TypeVar
+
+
+T = TypeVar("T")
 
 
 def measure(f: Callable) -> Callable:
@@ -46,11 +49,24 @@ def run_random(limit: int) -> None:
         print(i)
 
 
-def unfold[T](v: T, f: Callable[[T], T]) -> Iterator[T]:
-    yield v
+def unfold(v: T, f: Callable[[T], T]) -> Iterator[T]:
+    """
+    Generates an infinite sequence by repeatedly applying function `f` to the previous value.
+
+    Args:
+        v: The initial value.
+        f: A function that computes the next value from the previous value.
+
+    Yields:
+        T: The next value in the infinite unfold sequence.
+
+    Example:
+        >>> unfold(1, lambda x: x + 1)
+        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ...]
+    """
     while True:
-        v = f(v)
         yield v
+        v = f(v)
 
 
 def loop(limit: int) -> None:

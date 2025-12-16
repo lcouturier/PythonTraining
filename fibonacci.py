@@ -13,10 +13,10 @@ def fibonacci_cached(n: int) -> int:
 
 
 def fibonacci():
-    x, y = 0, 1
+    a, b = 0, 1
     while True:
-        yield x
-        x, y = y, x + y
+        yield a
+        a, b = b, a + b
 
 
 def get_fibonacci(limit: int) -> list[int]:
@@ -31,12 +31,12 @@ def get_fibonacci(limit: int) -> list[int]:
     return items
 
 
-def fibonacci_first(n: int):
-    if n == 0:
-        return 0
-    if n == 1:
-        return 1
-    return fibonacci(n - 1) + fibonacci(n - 2)
+# def fibonacci_first(n: int):
+#     if n == 0:
+#         return 0
+#     if n == 1:
+#         return 1
+#     return fibonacci(n - 1) + fibonacci(n - 2)
 
 
 def fibonacci_by_cache():
