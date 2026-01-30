@@ -1,5 +1,4 @@
 from functools import reduce
-from mimetypes import init
 from typing import Iterator, Tuple
 import requests as request
 import browser_cookie3
