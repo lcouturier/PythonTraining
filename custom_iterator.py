@@ -1,5 +1,4 @@
-from ast import List
-from typing import Callable, Iterable
+from typing import Callable, Iterable, Iterator, List
 
 
 class EvenNumbers:
@@ -49,8 +48,7 @@ class Chunked:
     def __iter__(self):
         return self
 
-    def __next__(self):
-
+    def __next__(self) -> list[int]:
         chunk: list[int] = []
         for _ in range(self.size):
             chunk.append(next(self.iterable))
@@ -80,7 +78,7 @@ class PairWise:
 
 
 class LeftJoin[L, R, K]:
-    left: Iterable[L]
+    left: Iterator[L]
     left_key: Callable[[L], K]
     right_key: Callable[[R], K]
     right_dict: dict[K, List[R]]
@@ -105,12 +103,37 @@ class LeftJoin[L, R, K]:
     def __iter__(self):
         return self
 
-    def __next__(self) -> tuple[L, R | None]:
+    def __next__(self) -> tuple[L, List[R] | None]:
         left: L = next(self.left)
         right: List[R] | None = self.right_dict.get(self.left_key(left))
         return left, right
 
 
+class Scan[T]:
+    iterable: Iterator[T]
+    current: T | None = None
+    acc: T | None = None
+    operation: Callable[[T, T], T]
+
+    def __init__(self, iterable, operation: Callable[[T, T], T]):
+        self.iterable = iter(iterable)
+        self.operation = operation
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.current = next(self.iterable)
+        if self.acc is None:
+            self.acc = self.current
+        else:
+            self.acc = self.operation(self.acc, self.current)
+        return self.acc
+
+
 if __name__ == "__main__":
-    for i in LeftJoin[int, int, int](range(10), [1, 2, 2, 3], lambda x: x, lambda x: x):
+    for i in Scan[int]([1, 2, 3, 4, 5], lambda x, y: x + y):
+        print(i)
+
+    for i in Scan[str](["a", "b", "c", "d", "e"], lambda x, y: x + y):
         print(i)
