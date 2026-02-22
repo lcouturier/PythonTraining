@@ -9,9 +9,11 @@ def isSubsetSum(items, l, sum):
         return False
 
     if items[l - 1] > sum:
-        return isSubsetSum(items, l - 1, sum);
+        return isSubsetSum(items, l - 1, sum)
 
-    return isSubsetSum(items, l - 1, sum) or isSubsetSum(items, l - 1, sum - items[l - 1])
+    return isSubsetSum(items, l - 1, sum) or isSubsetSum(
+        items, l - 1, sum - items[l - 1]
+    )
 
 
 # Returns true if there is a subset
@@ -35,9 +37,9 @@ def isSubsetSum(items, l, sm):
     # up manner
     for i in range(1, l + 1):
         for j in range(1, sm + 1):
-            if (j < items[i - 1]):
+            if j < items[i - 1]:
                 subset[i][j] = subset[i - 1][j]
-            if (j >= items[i - 1]):
+            if j >= items[i - 1]:
                 subset[i][j] = subset[i - 1][j] or subset[i - 1][j - items[i - 1]]
 
     """uncomment this code to print table
@@ -46,18 +48,18 @@ def isSubsetSum(items, l, sm):
             print(subset[i][j],end="")
     print(" ")"""
 
-    return subset[l][sm];
+    return subset[l][sm]
 
 
 def main():
     set = [3, 34, 4, 12, 5, 2]
     sum = 9
     n = len(set)
-    if (isSubsetSum(set, n, sum) == True):
+    if isSubsetSum(set, n, sum) == True:
         print("Found a subset with given sum")
     else:
         print("No subset with given sum")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

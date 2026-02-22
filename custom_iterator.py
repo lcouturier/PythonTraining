@@ -1,3 +1,7 @@
+from ast import List
+from typing import Callable, Iterable
+
+
 class EvenNumbers:
     n: int = 0
 
@@ -75,6 +79,38 @@ class PairWise:
             return self.prev, self.next
 
 
+class LeftJoin[L, R, K]:
+    left: Iterable[L]
+    left_key: Callable[[L], K]
+    right_key: Callable[[R], K]
+    right_dict: dict[K, List[R]]
+
+    def __init__(
+        self,
+        left: Iterable[L],
+        right: Iterable[R],
+        left_key: Callable[[L], K],
+        right_key: Callable[[R], K],
+    ) -> None:
+        self.left = iter(left)
+        self.left_key = left_key
+        self.right_key = right_key
+        self.right_dict: dict[K, List[R]] = {}
+        for item in right:
+            if self.right_key(item) not in self.right_dict:
+                self.right_dict[self.right_key(item)] = [item]
+            else:
+                self.right_dict[self.right_key(item)].append(item)
+
+    def __iter__(self):
+        return self
+
+    def __next__(self) -> tuple[L, R | None]:
+        left: L = next(self.left)
+        right: List[R] | None = self.right_dict.get(self.left_key(left))
+        return left, right
+
+
 if __name__ == "__main__":
-    for i in PairWise(range(100)):
+    for i in LeftJoin[int, int, int](range(10), [1, 2, 2, 3], lambda x: x, lambda x: x):
         print(i)

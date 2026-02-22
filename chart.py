@@ -8,7 +8,7 @@ def square(value):
 
 
 def cube(value):
-    return value ** 3
+    return value**3
 
 
 def sinus(value):
@@ -28,6 +28,6 @@ y = [y for x, y in items]
 
 plt.title("Fonction Carré")
 plt.plot(x, y)
-plt.xlabel('Valeurs de base')
-plt.ylabel('Valeurs au carré')
+plt.xlabel("Valeurs de base")
+plt.ylabel("Valeurs au carré")
 plt.show()
