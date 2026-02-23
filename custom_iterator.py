@@ -55,10 +55,7 @@ class Chunked:
         return chunk
 
 
-class PairWise:
-    prev: int | None = None
-    next: int = 0
-
+class PairWise[T]:
     def __init__(self, iterable):
         self.iterable = iter(iterable)
         self.prev = None
@@ -66,7 +63,7 @@ class PairWise:
     def __iter__(self):
         return self
 
-    def __next__(self):
+    def __next__(self) -> tuple[T, T]:
         if self.prev is None:
             self.prev = next(self.iterable)
             self.next = next(self.iterable)
@@ -106,6 +103,38 @@ class LeftJoin[L, R, K]:
     def __next__(self) -> tuple[L, List[R] | None]:
         left: L = next(self.left)
         right: List[R] | None = self.right_dict.get(self.left_key(left))
+        return left, right
+
+
+class InnerJoin[L, R, K]:
+    left_key: Callable[[L], K]
+    right_key: Callable[[R], K]
+
+    def __init__(
+        self,
+        left: Iterable[L],
+        right: Iterable[R],
+        left_key: Callable[[L], K],
+        right_key: Callable[[R], K],
+    ) -> None:
+        self.left = iter(left)
+        self.left_key = left_key
+        self.right_key = right_key
+        self.right_dict: dict[K, List[R]] = {}
+        for item in right:
+            if self.right_key(item) not in self.right_dict:
+                self.right_dict[self.right_key(item)] = [item]
+            else:
+                self.right_dict[self.right_key(item)].append(item)
+
+    def __iter__(self):
+        return self
+
+    def __next__(self) -> tuple[L, List[R] | None]:
+        left: L = next(self.left)
+        right: List[R] | None = self.right_dict.get(self.left_key(left))
+        if right is None:
+            raise StopIteration
         return left, right
 
 
@@ -161,6 +190,16 @@ class UnFold[T]:
 
 
 def separated_by[T](iterable: Iterable[T], separator: T) -> Iterator[T]:
+    """
+    Yield items from iterable with separator between them.
+
+    Args:
+        iterable: The iterable to yield items from
+        separator: The separator to yield between items
+
+    Yields:
+        Items from iterable with separator between them
+    """
     first = True
     for item in iterable:
         if not first:
@@ -170,7 +209,6 @@ def separated_by[T](iterable: Iterable[T], separator: T) -> Iterator[T]:
 
 
 if __name__ == "__main__":
-    for i in UnFold(1, lambda x: x * 2):
-        print(i)
-        if i > 10:
-            break
+    items: List[tuple[int, int]] = list(PairWise([1, 2, 3, 4, 5]))
+    for item in items:
+        print(item)
