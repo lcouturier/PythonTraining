@@ -36,7 +36,7 @@ def return_even(items: Iterable[int]) -> List[int]:
     return [i for i in items if i % 2 == 0]
 
 
-def even_generator(start: int = 0) -> int:
+def even_generator(start: int = 0) -> Iterable[int]:
     """
     Yield an infinite sequence of even integers, starting from `start`.
 
@@ -54,8 +54,8 @@ def even_generator(start: int = 0) -> int:
         value += 2
 
 
-def odd_generator():
+def odd_generator() -> Iterable[int]:
     value = 1
     while True:
-        yield 1
+        yield value
         value += 2

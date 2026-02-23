@@ -131,9 +131,46 @@ class Scan[T]:
         return self.acc
 
 
-if __name__ == "__main__":
-    for i in Scan[int]([1, 2, 3, 4, 5], lambda x, y: x + y):
-        print(i)
+class UnFold[T]:
+    """
+    Unfold is the opposite of fold. It takes a seed value and a function that generates the next value.
 
-    for i in Scan[str](["a", "b", "c", "d", "e"], lambda x, y: x + y):
+    Example:
+    >>> for i in UnFold(1, lambda x: x * 2):
+    ...     print(i)
+    ...     if i > 10:
+    ...         break
+    1
+    2
+    4
+    8
+    16
+    """
+
+    def __init__(self, start: T, operation: Callable[[T], T]):
+        self.start = start
+        self.operation = operation
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        result = self.start
+        self.start = self.operation(self.start)
+        return result
+
+
+def separated_by[T](iterable: Iterable[T], separator: T) -> Iterator[T]:
+    first = True
+    for item in iterable:
+        if not first:
+            yield separator
+        yield item
+        first = False
+
+
+if __name__ == "__main__":
+    for i in UnFold(1, lambda x: x * 2):
         print(i)
+        if i > 10:
+            break
