@@ -38,9 +38,7 @@ class fibonacci_iter:
         return value
 
 
-class Chunked:
-    size: int = 0
-
+class Chunked[T]:
     def __init__(self, iterable, size: int):
         self.iterable = iter(iterable)
         self.size = size
@@ -48,23 +46,33 @@ class Chunked:
     def __iter__(self):
         return self
 
-    def __next__(self) -> list[int]:
-        chunk: list[int] = []
+    def __next__(self) -> list[T]:
+        chunk: list[T] = []
+
         for _ in range(self.size):
-            chunk.append(next(self.iterable))
+            try:
+                chunk.append(next(self.iterable))
+            except StopIteration:
+                if chunk:
+                    return chunk
+                raise
+
         return chunk
 
 
 class PairWise[T]:
+    first: bool = True
+
     def __init__(self, iterable):
         self.iterable = iter(iterable)
-        self.prev = None
+        self.prev = next(self.iterable)
 
     def __iter__(self):
         return self
 
     def __next__(self) -> tuple[T, T]:
-        if self.prev is None:
+        if self.first:
+            self.first = False
             self.prev = next(self.iterable)
             self.next = next(self.iterable)
             return self.prev, self.next
@@ -209,6 +217,5 @@ def separated_by[T](iterable: Iterable[T], separator: T) -> Iterator[T]:
 
 
 if __name__ == "__main__":
-    items: List[tuple[int, int]] = list(PairWise([1, 2, 3, 4, 5]))
-    for item in items:
-        print(item)
+    items: Iterator[tuple[int, int]] = PairWise([1, 2, 3, 4, 5])
+    print(list(items))
