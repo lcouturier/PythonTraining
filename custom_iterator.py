@@ -60,15 +60,6 @@ class Chunked[T]:
         return chunk
 
 
-def pairwise[T](iterable: Iterable[T]) -> Iterator[tuple[T, T]]:
-    for i, item in enumerate(iterable):
-        if i == 0:
-            prev = item
-        else:
-            yield prev, item
-            prev = item
-
-
 class PairWise[T]:
     first: bool = True
 
@@ -155,16 +146,6 @@ class InnerJoin[L, R, K]:
         return left, right
 
 
-def accumulate[T](iterable: Iterable[T], operation: Callable[[T, T], T]) -> Iterator[T]:
-    acc: T | None = None
-    for item in iterable:
-        if acc is None:
-            acc = item
-        else:
-            acc = operation(acc, item)
-        yield acc
-
-
 class Scan[T]:
     iterable: Iterator[T]
     current: T | None = None
@@ -216,25 +197,5 @@ class UnFold[T]:
         return result
 
 
-def separated_by[T](iterable: Iterable[T], separator: T) -> Iterator[T]:
-    """
-    Yield items from iterable with separator between them.
-
-    Args:
-        iterable: The iterable to yield items from
-        separator: The separator to yield between items
-
-    Yields:
-        Items from iterable with separator between them
-    """
-    first = True
-    for item in iterable:
-        if not first:
-            yield separator
-        yield item
-        first = False
-
-
 if __name__ == "__main__":
-    items: Iterator[int] = accumulate([1, 2, 3, 4, 5], lambda x, y: x + y)
-    print(list(items))
+    pass
