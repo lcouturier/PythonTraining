@@ -1,4 +1,3 @@
-from itertools import count
 from typing import Callable, Iterable, Iterator
 
 
@@ -66,14 +65,32 @@ def group_by[T](iterable: Iterable[T], key: Callable[[T], T]) -> dict[T, list[T]
     return values
 
 
-# def windowed[T](iterable: Iterable[T], size: int) -> Iterator[list[T]]:
-#     # for (var i = 0; i < length - size + 1; i++) {
-#     #   yield skip(i).take(size).toList();
-#     # }
-#     iterator = iter(iterable)
-#     length = len(list(iterator))
-#     for i in range(length - size + 1):
-#         yield list[T](iterator)[i : i + size]
+def count_by[T](
+    iterable: Iterable[T], key: Callable[[T], T] = lambda x: x
+) -> dict[T, int]:
+    values: dict[T, int] = {}
+    for item in iterable:
+        if item not in values:
+            values[item] = 1
+        else:
+            values[item] += 1
+    return values
+
+
+def distinct_by[T](
+    iterable: Iterable[T], key: Callable[[T], T] = lambda x: x
+) -> Iterator[T]:
+    seen = set()
+    for item in iterable:
+        if key(item) not in seen:
+            seen.add(key(item))
+            yield item
+
+
+def windowed[T](iterable: Iterable[T], size: int) -> Iterator[list[T]]:
+    items = list(iterable)
+    for i in range(len(items) - size + 1):
+        yield items[i : i + size]
 
 
 if __name__ == "__main__":
@@ -94,5 +111,11 @@ if __name__ == "__main__":
     )
     print(group_by_result)
 
-    # windowed_result: Iterator[list[int]] = windowed([1, 2, 3, 4, 5], 2)
-    # print(list(windowed_result))
+    count_by_result: dict[int, int] = count_by([1, 2, 3, 3, 3, 4, 4, 5])
+    print(count_by_result)
+
+    distinct_by_result: Iterator[int] = distinct_by([1, 2, 3, 3, 3, 4, 4, 5])
+    print(list(distinct_by_result))
+
+    windowed_result: Iterator[list[int]] = windowed([1, 2, 3, 4, 5], 3)
+    print(list(windowed_result))
