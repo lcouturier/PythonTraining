@@ -53,7 +53,26 @@ def cycle[T](iterable: Iterable[T]) -> Iterator[T]:
             yield item
 
 
-def group_by[T](iterable: Iterable[T], key: Callable[[T], T]) -> dict[T, list[T]]:
+def group_by[T, E](
+    iterable: Iterable[T],
+    key: Callable[[T], T],
+    transform=lambda x: x,
+):
+    """
+    Groups the elements of the iterable by the key.
+
+    Args:
+        iterable: The iterable to group.
+        key: The key to group by.
+        transform: The transform to apply to the grouped elements.
+
+    Returns:
+        An iterator of tuples (key, transformed_group).
+
+    Example:
+        >>> list(group_by([1, 2, 3, 3, 3, 4, 5], lambda x: x % 2 == 0, len))
+        [(False, 5), (True, 2)]
+    """
     values: dict[T, list[T]] = {}
 
     for item in iterable:
@@ -62,7 +81,8 @@ def group_by[T](iterable: Iterable[T], key: Callable[[T], T]) -> dict[T, list[T]
         else:
             values[key(item)].append(item)
 
-    return values
+    for k, v in values.items():
+        yield k, transform(v)
 
 
 def count_by[T](
