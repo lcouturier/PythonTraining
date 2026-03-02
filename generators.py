@@ -11,10 +11,12 @@ def accumulate[T](iterable: Iterable[T], operation: Callable[[T, T], T]) -> Iter
         yield acc
 
 
-def separated_by[T](iterable: Iterable[T], separator: T) -> Iterator[T]:
+def separated_by[T](
+    iterable: Iterable[T], separator: T, predicate: Callable[[T], bool] = lambda x: True
+) -> Iterator[T]:
     first = True
     for item in iterable:
-        if not first:
+        if not first and predicate(item):
             yield separator
         yield item
         first = False
@@ -114,28 +116,33 @@ def windowed[T](iterable: Iterable[T], size: int) -> Iterator[list[T]]:
 
 
 if __name__ == "__main__":
-    accumulate_result: Iterator[int] = accumulate([1, 2, 3, 4, 5], lambda x, y: x + y)
-    print(list(accumulate_result))
+    # accumulate_result: Iterator[int] = accumulate([1, 2, 3, 4, 5], lambda x, y: x + y)
+    # print(list(accumulate_result))
 
     separated_result: Iterator[int] = separated_by([1, 2, 3, 4, 5], 0)
     print(list(separated_result))
 
-    pairwise_result: Iterator[tuple[int, int]] = pairwise([1, 2, 3, 4, 5])
-    print(list(pairwise_result))
-
-    chunked_result: Iterator[list[int]] = chunked([1, 2, 3, 4, 5], 2)
-    print(list(chunked_result))
-
-    group_by_result: dict[int, list[int]] = group_by(
-        [1, 2, 3, 3, 3, 4, 5], lambda x: x % 2 == 0
+    separated_result_2: Iterator[int] = separated_by(
+        [1, 2, 3, 4, 5], 0, lambda x: x != 2
     )
-    print(group_by_result)
+    print(list(separated_result_2))
 
-    count_by_result: dict[int, int] = count_by([1, 2, 3, 3, 3, 4, 4, 5])
-    print(count_by_result)
+    # pairwise_result: Iterator[tuple[int, int]] = pairwise([1, 2, 3, 4, 5])
+    # print(list(pairwise_result))
 
-    distinct_by_result: Iterator[int] = distinct_by([1, 2, 3, 3, 3, 4, 4, 5])
-    print(list(distinct_by_result))
+    # chunked_result: Iterator[list[int]] = chunked([1, 2, 3, 4, 5], 2)
+    # print(list(chunked_result))
 
-    windowed_result: Iterator[list[int]] = windowed([1, 2, 3, 4, 5], 3)
-    print(list(windowed_result))
+    # group_by_result: dict[int, list[int]] = group_by(
+    #     [1, 2, 3, 3, 3, 4, 5], lambda x: x % 2 == 0
+    # )
+    # print(group_by_result)
+
+    # count_by_result: dict[int, int] = count_by([1, 2, 3, 3, 3, 4, 4, 5])
+    # print(count_by_result)
+
+    # distinct_by_result: Iterator[int] = distinct_by([1, 2, 3, 3, 3, 4, 4, 5])
+    # print(list(distinct_by_result))
+
+    # windowed_result: Iterator[list[int]] = windowed([1, 2, 3, 4, 5], 3)
+    # print(list(windowed_result))
